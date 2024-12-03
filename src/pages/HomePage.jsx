@@ -1,40 +1,35 @@
 import { useEffect, useState } from "react";
 import { useSocket } from "../hooks/useSocket";
+import Background from "../components/Background";
+import MainContent from "../components/MainContent";
 
 export default function HomePage() {
-  const [message, setMessage] = useState("");
-  const [points, setPoints] = useState([]);
+  const [name, setName] = useState("");
+  const [names, setNames] = useState([]);
   const socket = useSocket();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    socket?.emit("player/answer", { message });
-    setMessage("");
+    if (name.trim() !== "") {
+      socket?.emit("player/name", { name });
+      setName("");
+    }
   };
+
   useEffect(() => {
-    socket?.on("player/points", (points) => {
-      setPoints(points);
+    socket?.on("players/update", (updatedNames) => {
+      setNames(updatedNames);
     });
+
+    return () => {
+      socket?.off("players/update");
+    };
   }, [socket]);
 
   return (
-    <>
-      <ul id="messages">
-        {points.map((point) => (
-          <li key={point.name}>
-            name: {point.name} with {point.point}
-          </li>
-        ))}
-      </ul>
-      <form id="form" onSubmit={submitHandler}>
-        <input
-          id="input"
-          autoComplete="off"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button>Send</button>
-      </form>
-    </>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden flex items-center justify-center">
+      <Background />
+      <MainContent name={name} setName={setName} submitHandler={submitHandler} />
+    </div>
   );
 }
