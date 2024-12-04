@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Background from "../components/Background";
 import MainContent from "../components/MainContent";
-import { SocketContext } from "../contexts/socket-init.context";
+import { SocketContext } from "../contexts/socket/socket-init.context";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -17,8 +17,10 @@ export default function HomePage() {
       socket?.emit("player/name", { name });
       localStorage.setItem("name", name);
       setName("");
+      navigate("/play");
+    } else {
+      console.log("please insert name");
     }
-    navigate("/play");
   };
 
   return (

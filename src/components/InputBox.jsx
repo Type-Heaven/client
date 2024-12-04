@@ -1,51 +1,49 @@
-import { useEffect, useState } from "react";
-import { useSocket } from "../hooks/useSocket";
+import { useContext, useEffect, useState } from "react";
+import { SocketContext } from "../contexts/socket/socket-init.context";
 
 export default function InputBox({ setPlayers }) {
-  const [question, setQuestion] = useState("");
-  // const [word, setWord] = useState({});
-  const [words, setWords] = useState([]);
+  const [word_offset, setOffset] = useState(0);
   const [visibleWords, setVisibleWords] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState("");
-  const socket = useSocket();
+  const socket = useContext(SocketContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (answer.trim() === words[currentIndex]) {
-      setCurrentIndex((prev) => prev + 1);
-      setAnswer(""); // Reset input
-    }
-    socket?.emit("player/answer", { answer });
-    // setAnswer("");
+
+    // if (answer.trim() === words[word_offset]) {
+    setOffset((prev) => prev + 1);
+    setAnswer(""); // Reset input
+    // }
+
+    socket?.emit("player/answer", {
+      answer,
+      name: localStorage.getItem("name"),
+    });
   };
 
   useEffect(() => {
-    socket?.on("question", (args) => {
-      // console.log(args);
-      setQuestion(args.question);
+    socket?.once("question", (args) => {
       const splitWords = args.question.split(" ");
-      setWords(splitWords);
-      setVisibleWords([]); // Reset kata yang terlihat
-      setCurrentIndex(0);
-      // console.log(args.question, "ini question");
-      splitWords.forEach((word, index) => {
-        
-          setVisibleWords((prev) => [...prev, word]);
+      setVisibleWords([]); // Reset visible
+      splitWords.forEach((word) => {
+        setVisibleWords((prev) => [...prev, word]);
       });
     });
 
     socket?.on("wordQuestion", (args) => {
       console.log(args);
-      setWord({ word: args.word, offset: args.offset });
+      setOffset(args.offset);
       // console.log(args.question, "ini question");
     });
 
     socket?.on("player", (args) => {
       // console.log(args.players[0].point);
       setPlayers(args.players);
-      console.log(players);
     });
+
+    return () => {
+      socket?.off("player");
+    };
   }, [socket]);
 
   return (
@@ -60,23 +58,32 @@ export default function InputBox({ setPlayers }) {
             overflowWrap: "break-word",
           }}
         >
-          {visibleWords.map((word, index) => (
+          {word_offset > visibleWords.length && (
             <span
-              key={index}
-              className={`mx-1 transition-opacity duration-500 ${
-                index < currentIndex
-                  ? "text-green-400"
-                  : index === currentIndex
-                  ? "text-yellow-400 underline"
-                  : "text-gray-300 opacity-100"
-              }`}
-              style={{
-                opacity: visibleWords.includes(word) ? 1 : 0,
-              }}
+              className={`mx-1 transition-opacity duration-500 text-red-600`}
             >
-              {word}
+              Finished
             </span>
-          ))}
+          )}
+
+          {word_offset <= visibleWords.length &&
+            visibleWords.map((word, index) => (
+              <span
+                key={index}
+                className={`mx-1 transition-opacity duration-500 ${
+                  index < word_offset - 1
+                    ? "text-green-400"
+                    : index === word_offset - 1
+                    ? "text-yellow-400 underline"
+                    : "text-gray-300 opacity-100"
+                }`}
+                style={{
+                  opacity: visibleWords.includes(word) ? 1 : 0,
+                }}
+              >
+                {word}
+              </span>
+            ))}
         </p>
       </div>
       {/* Form Input Teks dan Tombol */}
