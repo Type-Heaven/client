@@ -1,3 +1,4 @@
+import ArenaGames from "../components/ArenaGames";
 import Background from "../components/Background";
 import ChatModal from "../components/ChatModal";
 import HeaderInfo from "../components/HeaderInfo";
@@ -8,6 +9,7 @@ export default function MainPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center relative h-screen">
       <Background />
       <HeaderInfo />
+      <ArenaGames />
       <InputBox />
       <ChatModal />
 

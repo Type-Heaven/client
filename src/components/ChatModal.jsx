@@ -31,7 +31,7 @@ export default function ChatModal() {
 
       {/* Modal Chat */}
       {isOpen && (
-        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+        <div className="fixed top-16 right-8 flex justify-center items-start bg-black bg-opacity-50">
           <div className="bg-gray-800 w-full max-w-md h-96 rounded-lg shadow-lg overflow-hidden">
             {/* Header Modal */}
             <div className="flex justify-between items-center p-3 border-b border-gray-600">

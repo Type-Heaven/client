@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function InputBox() {
   return (
     <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-gray-700 bg-opacity-80 px-6 py-4 shadow-inner border border-gray-600 rounded-xl w-[95%] max-w-lg">
