@@ -13,6 +13,10 @@ const router = createBrowserRouter([
     path: "/play",
     element: <MainPage />,
   },
+  {
+    path: "/test",
+    element: <SocketTestPage />,
+  },
 ]);
 function App() {
   return (
