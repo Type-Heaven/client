@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SocketTestPage from "./pages/SocketTestPage";
+import MainPage from "./pages/MainPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -8,7 +9,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/play",
-    element: <SocketTestPage />,
+    element: <MainPage />,
   },
 ]);
 function App() {
