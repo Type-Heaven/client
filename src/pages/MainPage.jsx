@@ -11,7 +11,6 @@ import { SocketContext } from "../contexts/socket/socket-init.context";
 export default function MainPage() {
   const [players, setPlayers] = useState([]);
   const socket = useContext(SocketContext);
-  // const socket = useSocket();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -26,7 +25,6 @@ export default function MainPage() {
       setPlayers(args.players);
     });
     console.log("Main");
-
     return () => {
       socket?.off("player");
     };
@@ -36,7 +34,14 @@ export default function MainPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center relative h-screen">
       <Background />
       <HeaderInfo players={players} />
-      <ArenaGames />
+      <ArenaGames
+        player={
+          players.find((p) => p.name === localStorage.getItem("name")) || {
+            name: "",
+            point: 0,
+          }
+        }
+      />
       <InputBox setPlayers={setPlayers} />
       <ChatModal />
 
