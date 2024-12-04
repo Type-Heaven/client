@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSocket } from "../hooks/useSocket";
 import Background from "../components/Background";
 import MainContent from "../components/MainContent";
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [names, setNames] = useState([]);
   const socket = useSocket();
@@ -14,6 +16,7 @@ export default function HomePage() {
       socket?.emit("player/name", { name });
       setName("");
     }
+    navigate("/play");
   };
 
   useEffect(() => {
@@ -29,7 +32,11 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden flex items-center justify-center">
       <Background />
-      <MainContent name={name} setName={setName} submitHandler={submitHandler} />
+      <MainContent
+        name={name}
+        setName={setName}
+        submitHandler={submitHandler}
+      />
     </div>
   );
 }
