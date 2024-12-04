@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useSocket } from "../hooks/useSocket";
+import { useContext, useEffect, useState } from "react";
 import "../css/SocketTestPage.css";
+import { SocketContext } from "../contexts/socket-init.context";
 
 export default function SocketTestPage() {
   const [question, setQuestion] = useState("");
   const [word, setWord] = useState({});
   const [answer, setAnswer] = useState("");
   const [points, setPoints] = useState([]);
-  const socket = useSocket();
-  let questionParagraph = "";
+
+  const socket = useContext(SocketContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -17,21 +17,17 @@ export default function SocketTestPage() {
   };
   useEffect(() => {
     socket?.on("player", (args) => {
-      // console.log(args.players[0].point);
       setPoints(args.players);
     });
     socket?.on("question", (args) => {
-      // console.log(args);
       setQuestion(args.question);
-      // console.log(args.question, "ini question");
     });
     socket?.on("wordQuestion", (args) => {
       console.log(args);
       setWord({ word: args.word, offset: args.offset });
-      // console.log(args.question, "ini question");
     });
   }, [socket]);
-  // console.log("ini question", question);
+
   return (
     <>
       <ul id="messages">
