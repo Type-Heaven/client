@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useSocket } from "../hooks/useSocket"; // assuming the custom hook is already available
+import { useContext, useEffect, useState } from "react";
+// import { useSocket } from "../hooks/useSocket"; // assuming the custom hook is already available
+import { SocketContext } from "../contexts/socket/socket-init.context";
 
 export default function ChatModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,7 +8,7 @@ export default function ChatModal() {
   const [message, setMessage] = useState("");
 
   // Socket connection
-  const socket = useSocket();
+  const socket = useContext(SocketContext);
 
   // Open and close modal
   const openModal = () => {

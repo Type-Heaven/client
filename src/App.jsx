@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import MainPage from "./pages/MainPage";
 import "./App.css";
 import TestChat from "./pages/TestChat";
-import SocketContextProvider from "./contexts/socket.context";
+import SocketContextProvider from "./contexts/socket/socket.context";
 
 const router = createBrowserRouter([
   {

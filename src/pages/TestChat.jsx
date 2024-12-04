@@ -1,7 +1,7 @@
 // client/App
 import { useContext, useEffect, useState } from "react";
 import "../pages/TestChat.css";
-import { SocketContext } from "../contexts/socket-init.context";
+import { SocketContext } from "../contexts/socket/socket-init.context";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -12,8 +12,8 @@ function App() {
   const handleOnSendMessage = (e) => {
     e.preventDefault();
 
-    // I 1. emit sebuah events
-    console.log("Ini adalah messagenya", { message });
+    //1. emit message
+    console.log("This is the message", { message });
     socket?.emit("chats/create", {
       message,
       name: localStorage.getItem("name"),
@@ -30,9 +30,8 @@ function App() {
 
   return (
     <>
-      {/* kita render chat nya disini */}
       <ul id="messages">
-        {/* I 5. render messages */}
+        {/* render messages */}
         {messages.map((msg, i) => (
           <li
             key={i}

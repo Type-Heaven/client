@@ -1,13 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import "../css/SocketTestPage.css";
-import { SocketContext } from "../contexts/socket-init.context";
+import { SocketContext } from "../contexts/socket/socket-init.context";
 
 export default function SocketTestPage() {
   const [question, setQuestion] = useState("");
   const [word, setWord] = useState({});
   const [answer, setAnswer] = useState("");
   const [points, setPoints] = useState([]);
-
   const socket = useContext(SocketContext);
 
   const submitHandler = (e) => {
