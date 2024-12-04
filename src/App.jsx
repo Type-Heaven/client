@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import SocketTestPage from "./pages/SocketTestPage";
 import MainPage from "./pages/MainPage";
 import "./App.css";
+import TestChat from "./pages/TestChat";
+import SocketContextProvider from "./contexts/socket.context";
 
 const router = createBrowserRouter([
   {
@@ -15,13 +16,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <SocketTestPage />,
+    element: <TestChat />,
   },
 ]);
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <SocketContextProvider>
+        <RouterProvider router={router} />
+      </SocketContextProvider>
     </>
   );
 }
