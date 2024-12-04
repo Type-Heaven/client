@@ -5,7 +5,7 @@ export default function MainContent({ name, setName, submitHandler }) {
           Type Heaven
         </h1>
         <p className="text-gray-400 text-lg mb-6">
-          Ready to hit the track? Enter your name to begin!
+          Ready to hit the galaxy? Enter your name to begin!
         </p>
         <form className="space-y-6" onSubmit={submitHandler}>
           {/* Input Nama */}
