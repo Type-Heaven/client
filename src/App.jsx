@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MainPage from "./pages/MainPage";
 import "./App.css";
@@ -13,6 +17,12 @@ const router = createBrowserRouter([
   {
     path: "/play",
     element: <MainPage />,
+    loader: () => {
+      const player = localStorage.getItem("name");
+      if (!player) {
+        return redirect("/");
+      }
+    },
   },
   {
     path: "/test",
