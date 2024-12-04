@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SocketTestPage from "./pages/SocketTestPage";
+import "./App.css";
 const router = createBrowserRouter([
   {
     path: "/",
