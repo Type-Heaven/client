@@ -1,0 +1,19 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.glow {
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff,
+    0 0 40px #00ffff, 0 0 50px #00ffff;
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite alternate;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
