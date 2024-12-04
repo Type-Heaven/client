@@ -14,6 +14,7 @@ export default function HomePage() {
     e.preventDefault();
     if (name.trim() !== "") {
       socket?.emit("player/name", { name });
+      localStorage.setItem("name", name)
       setName("");
     }
     navigate("/play");

@@ -3,6 +3,7 @@ import HomePage from "./pages/HomePage";
 import SocketTestPage from "./pages/SocketTestPage";
 import MainPage from "./pages/MainPage";
 import "./App.css";
+import TestChat from "./pages/TestChat"
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     path: "/play",
     element: <MainPage />,
   },
+  {
+    path: "/test",
+    element: <TestChat />
+  }
 ]);
 function App() {
   return (
