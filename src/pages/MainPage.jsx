@@ -34,14 +34,7 @@ export default function MainPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex flex-col items-center justify-center relative h-screen">
       <Background />
       <HeaderInfo players={players} />
-      <ArenaGames
-        player={
-          players.find((p) => p.name === localStorage.getItem("name")) || {
-            name: "",
-            point: 0,
-          }
-        }
-      />
+      <ArenaGames players={players} />
       <InputBox setPlayers={setPlayers} />
       <ChatModal />
 
