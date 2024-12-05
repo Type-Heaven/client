@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Background from "../components/Background";
 import MainContent from "../components/MainContent";
 import { SocketContext } from "../contexts/socket/socket-init.context";
+import Swal from "sweetalert2"
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function HomePage() {
   //get socket from context
   const socket = useContext(SocketContext);
 
-  const submitHandler = (e) => {
+ const submitHandler = (e) => {
     e.preventDefault();
     if (name.trim() !== "") {
       socket?.emit("player/name", { name });
@@ -20,6 +21,18 @@ export default function HomePage() {
       navigate("/play");
     } else {
       console.log("please insert name");
+      Swal.fire({
+        title: "<span style='color:#ff7043;'>Oops!</span>",
+        html: "<p style='color:#ffccbc;'>You forgot to enter your name!</p>",
+        icon: "error",
+        background: "#1e293b",
+        color: "#ffccbc",
+        confirmButtonText: "<span style='color:#1e293b;'>Try Again</span>",
+        confirmButtonColor: "#ff7043",
+        customClass: {
+          popup: "rounded-lg shadow-lg",
+        },
+      });
     }
   };
 
