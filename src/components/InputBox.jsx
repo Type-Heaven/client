@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../contexts/socket/socket-init.context";
 
 export default function InputBox({ setPlayers }) {
-  const [word_offset, setOffset] = useState(0);
+  const [word_offset, setOffset] = useState(1);
   const [visibleWords, setVisibleWords] = useState([]);
   const [answer, setAnswer] = useState("");
   const socket = useContext(SocketContext);
@@ -12,6 +12,11 @@ export default function InputBox({ setPlayers }) {
 
     // if (answer.trim() === words[word_offset]) {
     setOffset((prev) => prev + 1);
+    // socket?.on("wordQuestion", (args) => {
+    //   console.log(args);
+    //   setOffset(args.offset);
+      // console.log(args.question, "ini question");
+    // });
     setAnswer(""); // Reset input
     // }
 
@@ -30,11 +35,11 @@ export default function InputBox({ setPlayers }) {
       });
     });
 
-    socket?.on("wordQuestion", (args) => {
-      console.log(args);
-      setOffset(args.offset);
-      // console.log(args.question, "ini question");
-    });
+    // socket?.on("wordQuestion", (args) => {
+    //   console.log(args);
+    //   setOffset(args.offset);
+    //   // console.log(args.question, "ini question");
+    // });
 
     socket?.on("player", (args) => {
       // console.log(args.players[0].point);

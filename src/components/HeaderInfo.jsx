@@ -8,7 +8,7 @@ export default function HeaderInfo({ players }) {
           </p>
           <p>
             Points:{" "}
-            <span className="text-yellow-400 font-bold">{player.point}</span>
+            <span className="text-yellow-400 font-bold">{player.point.toFixed(2)}</span>
           </p>
         </div>
       ))}
