@@ -9,16 +9,8 @@ export default function InputBox({ setPlayers }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    // if (answer.trim() === words[word_offset]) {
     setOffset((prev) => prev + 1);
-    // socket?.on("wordQuestion", (args) => {
-    //   console.log(args);
-    //   setOffset(args.offset);
-      // console.log(args.question, "ini question");
-    // });
-    setAnswer(""); // Reset input
-    // }
+    setAnswer("");
 
     socket?.emit("player/answer", {
       answer,
@@ -34,15 +26,7 @@ export default function InputBox({ setPlayers }) {
         setVisibleWords((prev) => [...prev, word]);
       });
     });
-
-    // socket?.on("wordQuestion", (args) => {
-    //   console.log(args);
-    //   setOffset(args.offset);
-    //   // console.log(args.question, "ini question");
-    // });
-
     socket?.on("player", (args) => {
-      // console.log(args.players[0].point);
       setPlayers(args.players);
     });
 
